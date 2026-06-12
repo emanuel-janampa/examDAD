@@ -1,0 +1,66 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-MsLibPrestamosApplication<ms-lib-prestamos>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.janampa.ms_lib_prestamos.MsLibPrestamosApplication",
+            "projectName": "ms-lib-prestamos",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=61945 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=ms-lib-prestamos"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MsLibLibrosApplication<ms-lib-libros>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.janampa.ms_lib_libros.MsLibLibrosApplication",
+            "projectName": "ms-lib-libros",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=61938 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=ms-lib-libros"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MsLibEurekaApplication<ms-lib-eureka>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.janampa.ms_lib_eureka.MsLibEurekaApplication",
+            "projectName": "ms-lib-eureka",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MsLibConfigApplication<ms-lib-config>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.janampa.ms_lib_config.MsLibConfigApplication",
+            "projectName": "ms-lib-config",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MsLibReservasApplication<ms-lib-reservas>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.janampa.ms_lib_reservas.MsLibReservasApplication",
+            "projectName": "ms-lib-reservas",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MsLibGatewayApplication<ms-lib-gateway>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.janampa.ms_lib_gateway.MsLibGatewayApplication",
+            "projectName": "ms-lib-gateway",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

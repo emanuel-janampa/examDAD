@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  db-biblioteca:
+    image: mysql:8.0
+    container_name: mysql-lib-container
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data_lib:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - biblioteca-net
+
+volumes:
+  db_data_lib:
+
+networks:
+  biblioteca-net:
+    driver: bridge
