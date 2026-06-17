@@ -29,18 +29,18 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public CategoryResponse getById(@PathVariable Long id) {
+    public CategoryResponse getById(@PathVariable("id") Long id) {
         return service.getById(id);
     }
 
     @PutMapping("/{id}")
-    public CategoryResponse update(@PathVariable Long id, @Valid @RequestBody CategoryRequest request) {
+    public CategoryResponse update(@PathVariable("id") Long id, @Valid @RequestBody CategoryRequest request) {
         return service.update(id, request);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable("id") Long id) {
         service.delete(id);
     }
 }

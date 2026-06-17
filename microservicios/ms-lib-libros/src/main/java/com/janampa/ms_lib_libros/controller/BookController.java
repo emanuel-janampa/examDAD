@@ -29,18 +29,26 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public BookResponse getById(@PathVariable Long id) {
+    public BookResponse getById(@PathVariable("id") Long id) {
         return service.getById(id);
     }
 
     @PutMapping("/{id}")
-    public BookResponse update(@PathVariable Long id, @Valid @RequestBody BookRequest request) {
+    public BookResponse update(@PathVariable("id") Long id, @Valid @RequestBody BookRequest request) {
         return service.update(id, request);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable("id") Long id) {
         service.delete(id);
+    }
+
+    @PutMapping("/{id}/decrease-stock")
+    @ResponseStatus(HttpStatus.OK)
+    public void decreaseStock(
+            @PathVariable("id") Long id,
+            @RequestParam("amount") int amount) {
+        service.decreaseStock(id, amount);
     }
 }

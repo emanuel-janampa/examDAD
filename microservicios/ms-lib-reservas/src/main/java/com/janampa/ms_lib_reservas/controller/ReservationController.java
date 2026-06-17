@@ -28,18 +28,20 @@ public class ReservationController {
     }
 
     @GetMapping("/{id}")
-    public ReservationResponse getById(@PathVariable Long id) {
+    public ReservationResponse getById(@PathVariable("id") Long id) {
         return service.getById(id);
     }
 
     @PatchMapping("/{id}/status")
-    public ReservationResponse updateStatus(@PathVariable Long id, @RequestParam String status) {
+    public ReservationResponse updateStatus(
+            @PathVariable("id") Long id,
+            @RequestParam("status") String status) {
         return service.updateStatus(id, status);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable("id") Long id) {
         service.delete(id);
     }
 }

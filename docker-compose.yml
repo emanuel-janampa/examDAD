@@ -1,22 +1,111 @@
-version: '3.8'
-
 services:
-  db-biblioteca:
-    image: mysql:8.0
-    container_name: mysql-lib-container
+  mysql:
+    image: mysql:8
+    container_name: mysql-lib
     environment:
       MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
     volumes:
-      - db_data_lib:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-    networks:
-      - biblioteca-net
+    restart: always
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "root",
+          "-p$$MYSQL_ROOT_PASSWORD",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  eureka:
+    build: ./infraestructura/ms-lib-eureka
+    container_name: eureka
+    ports:
+      - "8761:8761"
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  config:
+    build: ./infraestructura/ms-lib-config
+    container_name: config
+    ports:
+      - "8888:8888"
+    restart: always
+    depends_on:
+      eureka:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8888/actuator/health"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  gateway:
+    build: ./infraestructura/ms-lib-gateway
+    container_name: gateway
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+      eureka:
+        condition: service_healthy
+      config:
+        condition: service_healthy
+
+  libros:
+    build: ./microservicios/ms-lib-libros
+    container_name: ms-lib-libros
+    ports:
+      - "8081:8081"
+    restart: always
+    depends_on:
+      mysql:
+        condition: service_healthy
+      eureka:
+        condition: service_healthy
+      config:
+        condition: service_healthy
+
+  prestamos:
+    build: ./microservicios/ms-lib-prestamos
+    container_name: ms-lib-prestamos
+    ports:
+      - "8082:8082"
+    restart: always
+    depends_on:
+      mysql:
+        condition: service_healthy
+      eureka:
+        condition: service_healthy
+      config:
+        condition: service_healthy
+
+  reservas:
+    build: ./microservicios/ms-lib-reservas
+    container_name: ms-lib-reservas
+    ports:
+      - "8083:8083"
+    restart: always
+    depends_on:
+      mysql:
+        condition: service_healthy
+      eureka:
+        condition: service_healthy
+      config:
+        condition: service_healthy
 
 volumes:
-  db_data_lib:
-
-networks:
-  biblioteca-net:
-    driver: bridge
+  mysql_data:

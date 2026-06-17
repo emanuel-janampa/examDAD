@@ -86,4 +86,20 @@ public class BookServiceImpl implements BookService {
         }
         repository.deleteById(id);
     }
+
+    @Override
+    public void decreaseStock(Long id, int amount) {
+
+        Book book = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Libro no encontrado"));
+
+        if (book.getStockDisponible() < amount) {
+            throw new RuntimeException("Stock insuficiente");
+        }
+
+        book.setStockDisponible(
+                book.getStockDisponible() - amount);
+
+        repository.save(book);
+    }
 }

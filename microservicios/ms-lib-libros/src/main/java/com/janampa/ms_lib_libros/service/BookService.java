@@ -6,8 +6,14 @@ import java.util.List;
 
 public interface BookService {
     BookResponse create(BookRequest request);
+
     List<BookResponse> getAll();
+
     BookResponse getById(Long id);
+
     BookResponse update(Long id, BookRequest request);
+
     void delete(Long id);
+
+    void decreaseStock(Long id, int amount);
 }
